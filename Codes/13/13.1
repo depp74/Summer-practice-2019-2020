@@ -1,0 +1,202 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <windows.h>
+
+using namespace std;
+
+#define FILENAME "student.bin"
+
+struct Student
+{
+    char name[30];
+    char lastname[30];
+    char patronymic[30];
+    int algebra_grade;
+    int history_grade;
+    int english_grade;
+};
+
+void add_students(struct Student& classman);
+void show_all_students();
+void find_excellent_students();
+int main()
+{
+    setlocale(LC_ALL, "");
+    int choice;
+    bool exit = false;
+    struct Student classman;
+
+    cout << "{1} - Record information about new students" << endl;
+    cout << "{2} - Output all students" << endl;
+    cout << "{3} - Output only the excellent students" << endl;
+    cout << "{4} - Exit" << endl;
+    cout << "\n-> ";
+    cin >> choice;
+
+    switch (choice)
+    {
+    case 1:
+        system("cls");
+        add_students(classman);
+        break;
+    case 2:
+        system("cls");
+        show_all_students();
+        break;
+    case 3:
+        system("cls");
+        find_excellent_students();
+        break;
+    case 4:
+        system("cls");
+        exit = false;
+        break;
+    }
+}
+
+void add_students(struct Student& classman)
+{
+    ofstream file;
+
+    file.open(FILENAME, ofstream::in | ofstream::out | ofstream::app);
+
+    cout << "Add information about the student" << endl << endl;
+
+    cin.ignore(7777, '\n');
+    cout << "Enter the student's name: ";
+    cin.getline(classman.name, 30);
+
+    cout << "Enter the student's last name: ";
+    cin.getline(classman.lastname, 30);
+
+    cout << "Enter the student's patronymic: ";
+    cin.getline(classman.patronymic, 30);
+
+    cout << "Enter algebra grade: ";
+    cin >> classman.algebra_grade;
+
+    cout << "Enter history grade: ";
+    cin >> classman.history_grade;
+
+    cout << "Enter english grade: ";
+    cin >> classman.english_grade;
+
+    file.write((char*)&classman, sizeof(Student));
+    file.close();
+
+    system("cls");
+    cout << "Student information successfully added!";
+    Sleep(1500);
+    system("cls");
+    main();
+}
+
+void find_excellent_students()
+{
+    ifstream file;
+    Student* classman = new Student[50];
+    int i = 0;
+    bool check = false;
+    char way = 'y';
+
+    file.open(FILENAME, ios::in | ios::binary);
+
+    cout << "List of excellent students" << endl << endl;
+
+    if (file.is_open())
+    {
+        while (!file.eof())
+        {
+            file.read((char*)&classman[i], sizeof(Student));
+            if (file)
+            {
+                if ((classman[i].algebra_grade == 5) || (classman[i].history_grade == 5))
+                {
+                    cout << i + 1 << ". " << classman[i].lastname << " " << classman[i].name << " " << classman[i].patronymic << ": " << "\n";
+                    cout << "   Algebra grade: " << classman[i].algebra_grade << " | " << "History grade: " << classman[i].history_grade << " | " << "English grade: " << classman[i].english_grade << "\n\n";
+                    check = true;
+                }
+                else if ((classman[i].algebra_grade == 5) || (classman[i].english_grade == 5))
+                {
+                    cout << i + 1 << ". " << classman[i].lastname << " " << classman[i].name << " " << classman[i].patronymic << ": " << "\n";
+                    cout << "   Algebra grade: " << classman[i].algebra_grade << " | " << "History grade: " << classman[i].history_grade << " | " << "English grade: " << classman[i].english_grade << "\n\n";
+                    check = true;
+                }
+                else if ((classman[i].history_grade == 5) || (classman[i].english_grade == 5))
+                {
+                    cout << i + 1 << ". " << classman[i].lastname << " " << classman[i].name << " " << classman[i].patronymic << ": " << "\n";
+                    cout << "   Algebra grade: " << classman[i].algebra_grade << " | " << "History grade: " << classman[i].history_grade << " | " << "English grade: " << classman[i].english_grade << "\n\n";
+                    check = true;
+                }
+            }
+            i++;
+        }
+    }
+    file.close();
+    if (check == false)
+    {
+        system("cls");
+        cout << "There are no excellent students!";
+        Sleep(1500);
+        system("cls");
+        main();
+    }
+
+    do
+    {
+        cout << "\nIf you want to exit, then press 'y': ";
+        cin >> way;
+        system("cls");
+
+    } while (way != 'y');
+
+    system("cls");
+    main();
+}
+void show_all_students()
+{
+    ifstream file;
+    Student* classman = new Student[50];
+    int i = 0;
+    bool check = false;
+    char way = 'y';
+
+    file.open(FILENAME, ios::in | ios::binary);
+
+    cout << "List of all students" << endl << endl;
+
+    if (file.is_open())
+    {
+        while (!file.eof())
+        {
+            file.read((char*)&classman[i], sizeof(Student));
+            if (file)
+            {
+                cout << i + 1 << ". " << classman[i].lastname << " " << classman[i].name << " " << classman[i].patronymic << ": " << "\n";
+                cout << "   Algebra grade: " << classman[i].algebra_grade << " | " << "History grade: " << classman[i].history_grade << " | " << "English grade: " << classman[i].english_grade << "\n\n";;
+                check = true;
+            }
+            i++;
+        }
+    }
+    file.close();
+
+    if (check == false)
+    {
+        system("cls");
+        cout << "Add students first!";
+        Sleep(1500);
+        system("cls");
+        main();
+    }
+
+    do
+    {
+        cout << "\nIf you want to exit, then press 'y': ";
+        cin >> way;
+        system("cls");
+    } while (way != 'y');
+    system("cls");
+    main();
+}
