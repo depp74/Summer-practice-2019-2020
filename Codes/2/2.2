@@ -1,0 +1,68 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int T[8];
+    int H[8];
+    int P[8];
+    int j;
+
+    cout << "1 massiv " << endl;
+    for (j = 0; j < 8; j++) {
+        cout << "[" << j + 1 << "]" << ": ";
+        cin >> T[j];
+    }
+    cout << "\n";
+
+    cout << "2 massiv" << endl;
+    for (j = 0; j < 8; j++) {
+        cout << "[" << j + 1 << "]" << ": ";
+        cin >> H[j];
+    }
+    cout << "\n";
+
+    cout << "3 massiv" << endl;
+    for (j = 0; j < 8; j++) {
+        P[j] = T[j] + H[j];
+        cout << "P[" << j << "]= " << P[j] << "\n";
+    }
+
+    cout << "\n";
+    for (j = 0; j < 8; j++)
+    {
+        cout << "T[" << j << "]= " << T[j] << "\n";
+    }
+
+    cout << "\n";
+    for (j = 0; j < 8; j++)
+    {
+        cout << "H[" << j << "]= " << H[j] << "\n";
+    }
+
+    cout << "\n";
+    for (j = 0; j < 8; j++)
+    {
+
+        for (int j = 1; j < 8; ++j)
+        {
+            for (int r = 0; r < 8 - j; r++)
+            {
+                if (P[r] < P[r + 1])
+                {
+                    int temp = P[r];
+                    P[r] = P[r + 1];
+                    P[r + 1] = temp;
+                }
+            }
+        }
+    }
+
+    for (int j = 0; j < 8; ++j)
+    {
+        cout << "P[" << j << "]= " << P[j] << "\n";
+    }
+
+    cout << "\nDirect by Hokage";
+}
