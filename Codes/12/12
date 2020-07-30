@@ -1,0 +1,87 @@
+#include <stdio.h>;
+#include <iostream>;
+
+using namespace std;
+
+struct comp { 
+    int Data; 
+    comp* next;
+};
+
+struct comp1 { 
+    int DataS; 
+    comp1* next1;
+};
+
+void s_push(comp** top, int D) { 
+    comp* q; 
+    q = new comp(); 
+    q->Data = D; 
+    if (top == NULL) { 
+        *top = q; 
+    }
+    else 
+    {
+        q->next = *top; 
+        *top = q; 
+    }
+}
+void s_push2(comp1** top2, int D) { 
+    comp1* q; 
+    q = new comp1(); 
+    q->DataS = D; 
+    if (top2 == NULL) { 
+        *top2 = q; 
+    }
+    else 
+    {
+        q->next1 = *top2;
+        
+        *top2 = q; 
+    }
+}
+
+void s_print(comp* top) {     
+    comp* q = top; 
+    while (q) { 
+        cout << q->Data << " ";
+        q = q->next;
+    }
+}
+
+void s_print2(comp1* top2) {   
+    comp1* q = top2; 
+    while (q) {
+        cout << q->DataS << " ";;
+        q = q->next1;
+    }
+}
+
+void main() {
+    comp* top = NULL;
+    comp1* top2 = NULL;
+
+
+    for (int j = -50; j <= -1; j++)
+    {
+        s_push2(&top2, j);
+
+    }
+
+    for (int i = 1; i <= 50; i++)
+    {
+        s_push(&top, i);
+
+    }
+
+    s_print(top);
+    printf_s("\n");
+    s_print2(top2);
+
+    cout << "\nDirect by Hokage" << endl;
+
+    delete[]top;
+    delete[]top2;
+    system("pause");
+}
+ 
