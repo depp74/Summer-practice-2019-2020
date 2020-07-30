@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+void Area1();
+
+int main()
+{
+    setlocale(0, "ukr");
+    Area1();
+    cout << "\nDirect by Hokage" << endl;
+    return 0;
+}
+void Area1()
+{
+    int Struk, Sp, Strap;
+    int a = 10, b = 20, h = 2;
+    int n;
+    cout << "1)S-трикутника\n";
+    cout << "2)S-прямокутника\n";
+    cout << "3)S-трапецiї\n";
+    cout << "Введiть що вам потрiбно розв'язати: \n";
+    cin >> n;
+    switch (n)
+    {
+    case 1: Struk = 1. / 2 * b * h;
+        cout << "S-трикутника: " << Struk;
+        break;
+    case 2: Sp = a * b;
+        cout << "S-прямокутника: " << Sp;
+        break;
+    case 3:Strap = a + b / 2 * h;
+        cout << "S-трапецiї: " << Strap;
+        break;
+    default: cout << "404 invalid";
+        break;
+    }
+}
