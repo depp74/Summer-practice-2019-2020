@@ -1,0 +1,77 @@
+#include <iostream>
+
+#define N 4
+
+void enterArr(int F[N][N], int n); 
+
+using namespace std;
+
+int main()
+{
+    int n;
+    int F[N][N];
+    int ser;
+
+    setlocale(LC_CTYPE, "ukr");
+
+    cout << "Введiть кiлькiсть рядкiв i стовпцiв матрицi i стовпцiв: ";  
+    cin >> n;
+    enterArr(F, n);
+
+    int max;
+    int i;
+    max = F[0][0];
+
+    for (int i = 0; i < n; i++) 
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if ((j + 1 > i) && (max < F[i][j]))
+            {
+                max = F[i][j];
+            }
+        }
+    }
+
+    int min;
+    min = F[0][0];
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if ((j + 1 > i) && (min > F[i][j]))
+            {
+                min = F[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)    
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (F[i + 1][j + 1] < 0)
+                ser = (max + min) / 2;
+        }
+    }
+
+    cout << "MAX = " << max << endl;
+    cout << "MIN = " << min << endl;
+    cout << "Середнє = " << ser << endl;
+
+    cout << "Direct by Hokage" << endl;
+    system("pause");
+    return 0;
+}
+
+void enterArr(int F[N][N], int n)
+{
+    cout << "Введiть елементи масиву:\n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> F[i][j];
+        }
+    }
+}
