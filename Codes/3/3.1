@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int dob = 1;
+
+    setlocale(LC_CTYPE, "ukr");
+
+    int** F = new int* [5]; 
+    for (int i = 0; i < 5; i++) {
+        F[i] = new int[5];
+    }
+    for (int i = 0; i < 5; i++) { 
+        for (int j = 0; j < 5; j++) {
+            F[i][j] = rand() % 20 + (-5);
+        }
+    }
+    for (int i = 0; i < 5; i++) { 
+        for (int j = 0; j < 5; j++) {
+            cout << F[i][j] << '\t';
+        }
+        cout << endl;
+    }
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (F[i][j] < 0)
+                dob *= F[i][j];
+        }
+    }
+    cout << "Добуток = " << dob << endl;
+
+    cout << "Director by Hokage" << endl;
+    system("pause");
+    return 0;
+}
